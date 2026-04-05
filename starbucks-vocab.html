@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Starbucks Partner Vocab Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Noto+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #1E3932;
+    --green-mid: #00704A;
+    --green-light: #CBA258;
+    --cream: #F2EFE4;
+    --warm-white: #FAF8F3;
+    --text-dark: #1a1a1a;
+    --text-mid: #444;
+    --card-bg: #ffffff;
+    --shadow: 0 4px 24px rgba(30,57,50,0.10);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Noto Sans Thai', sans-serif;
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--green-dark);
+    padding: 60px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,112,74,0.35) 0%, transparent 70%);
+    top: -100px; left: -80px;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(203,162,88,0.18) 0%, transparent 70%);
+    bottom: -60px; right: -40px;
+  }
+  .hero-icon {
+    font-size: 56px;
+    margin-bottom: 16px;
+    display: block;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 6vw, 48px);
+    color: var(--cream);
+    line-height: 1.2;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 span {
+    color: var(--green-light);
+  }
+  .hero p {
+    color: rgba(242,239,228,0.7);
+    margin-top: 12px;
+    font-size: 15px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* NAV TABS */
+  .nav-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--green-dark);
+    padding: 0 16px 16px;
+  }
+  .nav-tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(242,239,228,0.8);
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-family: 'Noto Sans Thai', sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover, .tab-btn.active {
+    background: var(--green-mid);
+    color: white;
+    border-color: var(--green-mid);
+  }
+
+  /* MAIN */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 16px 80px;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 48px;
+    display: none;
+  }
+  .section.active { display: block; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .section-icon {
+    width: 48px; height: 48px;
+    background: var(--green-dark);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--green-dark);
+  }
+  .section-sub {
+    font-size: 13px;
+    color: #888;
+    margin-top: 2px;
+  }
+
+  /* VOCAB CARDS GRID */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+  }
+
+  .vocab-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--green-mid);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .vocab-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(30,57,50,0.15);
+  }
+  .vocab-card .term {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--green-mid);
+    margin-bottom: 6px;
+  }
+  .vocab-card .meaning {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+
+  /* ACCENT COLORS PER CATEGORY */
+  .accent-coffee  { border-left-color: #6F4E37; }
+  .accent-coffee .term { color: #6F4E37; }
+  .accent-milk    { border-left-color: #7DA5C7; }
+  .accent-milk .term { color: #7DA5C7; }
+  .accent-sweet   { border-left-color: #C97B5A; }
+  .accent-sweet .term { color: #C97B5A; }
+  .accent-temp    { border-left-color: #4A90A4; }
+  .accent-temp .term { color: #4A90A4; }
+  .accent-ops     { border-left-color: var(--green-mid); }
+  .accent-ops .term { color: var(--green-mid); }
+  .accent-drink   { border-left-color: #8B5CF6; }
+  .accent-drink .term { color: #8B5CF6; }
+  .accent-food    { border-left-color: #D97706; }
+  .accent-food .term { color: #D97706; }
+  .accent-problem { border-left-color: #DC2626; }
+  .accent-problem .term { color: #DC2626; }
+  .accent-custom  { border-left-color: #059669; }
+  .accent-custom .term { color: #059669; }
+  .accent-clean   { border-left-color: #6366F1; }
+  .accent-clean .term { color: #6366F1; }
+
+  /* TIP BOX */
+  .tip-box {
+    background: linear-gradient(135deg, #E8F5E9, #F1F8E9);
+    border: 1px solid #A5D6A7;
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin-top: 24px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .tip-box .tip-icon { font-size: 22px; flex-shrink: 0; }
+  .tip-box p { font-size: 14px; color: #2E7D32; line-height: 1.7; }
+
+  /* SEARCH */
+  .search-wrap {
+    margin-bottom: 28px;
+  }
+  .search-input {
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 100px;
+    border: 2px solid #e0ddd4;
+    background: white;
+    font-size: 15px;
+    font-family: 'Noto Sans Thai', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-input:focus { border-color: var(--green-mid); }
+  .search-input::placeholder { color: #aaa; }
+
+  /* ALL SECTION for search */
+  #all-section { display: none; }
+  #all-section.active { display: block; }
+
+  /* BADGE */
+  .badge {
+    display: inline-block;
+    background: var(--green-dark);
+    color: var(--cream);
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 100px;
+    margin-left: 8px;
+    vertical-align: middle;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  @media (max-width: 480px) {
+    .vocab-grid { grid-template-columns: 1fr; }
+    .hero { padding: 48px 16px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-icon">☕</span>
+  <h1>Starbucks <span>Partner</span> Vocab</h1>
+  <p>ศัพท์ที่ต้องรู้สำหรับ Barista มือใหม่ 🌿</p>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="showTab('coffee')">🫘 กาแฟ</button>
+    <button class="tab-btn" onclick="showTab('milk')">🥛 นม</button>
+    <button class="tab-btn" onclick="showTab('sweet')">🍬 ความหวาน</button>
+    <button class="tab-btn" onclick="showTab('temp')">🧊 อุณหภูมิ</button>
+    <button class="tab-btn" onclick="showTab('drink')">🥤 เมนู</button>
+    <button class="tab-btn" onclick="showTab('ops')">🧾 ในร้าน</button>
+    <button class="tab-btn" onclick="showTab('food')">🥐 อาหาร</button>
+    <button class="tab-btn" onclick="showTab('problem')">⚠️ แจ้งปัญหา</button>
+    <button class="tab-btn" onclick="showTab('custom')">✨ Custom</button>
+    <button class="tab-btn" onclick="showTab('clean')">🧹 เปิด-ปิดร้าน</button>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- SEARCH -->
+  <div class="search-wrap">
+    <input class="search-input" type="text" placeholder="🔍  ค้นหาศัพท์..." oninput="searchVocab(this.value)">
+  </div>
+
+  <!-- ALL (search results) -->
+  <div class="section" id="all-section">
+    <div class="vocab-grid" id="search-results"></div>
+  </div>
+
+  <!-- ☕ COFFEE -->
+  <div class="section active" id="coffee-section">
+    <div class="section-header">
+      <div class="section-icon">🫘</div>
+      <div>
+        <div class="section-title">เกี่ยวกับกาแฟ</div>
+        <div class="section-sub">พื้นฐานที่ทุก Barista ต้องรู้</div>
+      </div>
+    </div>
+    <div class="vocab-grid">
+      <div class="vocab-card accent-coffee"><div class="term">Espresso</div><div class="meaning">กาแฟเข้มข้นที่เป็นพื้นฐานของเครื่องดื่มเกือบทุกอย่าง</div></div>
+      <div class="vocab-card accent-coffee"><div class="term">Shot</div><div class="meaning">ปริมาณ espresso 1 ครั้ง (~30ml)</div></div>
+      <div class="vocab-card accent-coffee"><div class="term">Doppio</div><div class="meaning">Espresso 2 shot (double)</div></div>
+      <div class="vocab-card accent-coffee"><div class="term">Ristretto</div><div class="meaning">Espresso ที่เข้มและหวานกว่าปกติ ใช้น้ำน้อยกว่า</div></div>
+      <div class="vocab-card accent-coffee"><div class="term">Lungo</div><div class="meaning">Espresso ที่ใช้น้ำมากกว่าปกติ รสอ่อนกว่า</div></div>
+      <div class="vocab-card accent-coffee"><div class="term">Crema</div><div class="meaning">ฟองสีน้ำตาลทองบนหน้า espresso บ่งบอกว่าชงได้ดี</div></div>
+      <div class="vocab-card accent-coffee"><div class="term">Grind</div><div class="meaning">การบดเมล็ดกาแฟ</div></div>
+      <div class="vocab-card accent-coffee"><div class="term">Tamp</div><div class="meaning">การอัดผงกาแฟในตะกร้าให้แน่น ก่อนชง</div></div>
+      <div class="vocab-card accent-coffee"><div class="term">Portafilter</div><div class="meaning">ที่ใส่ผงกาแฟ ต่อเข้ากับเครื่อง espresso</div></div>
+    </div>
+  </div>
+
+  <!-- 🥛 MILK -->
+  <div class="section" id="milk-section">
+    <div class="section-header">
+      <div class="section-icon">🥛</div>
+      <div>
+        <div class="section-title">เกี่ยวกับนม</div>
+        <div class="section-sub">ประเภทนมและการ Steam</div>
+      </div>
+    </div>
+    <div class="vocab-grid">
+      <div class="vocab-card accent-milk"><div class="term">Whole milk</div><div class="meaning">นมสด ไขมันเต็ม — ใช้เป็น default</div></div>
+      <div class="vocab-card accent-milk"><div class="term">Skim milk</div><div class="meaning">นมไขมัน 0%</div></div>
+      <div class="vocab-card accent-milk"><div class="term">Oat milk</div><div class="meaning">นมข้าวโอ๊ต (ยอดนิยมมาก!)</div></div>
+      <div class="vocab-card accent-milk"><div class="term">Soy milk</div><div class="meaning">นมถั่วเหลือง</div></div>
+      <div class="vocab-card accent-milk"><div class="term">Almond milk</div><div class="meaning">นมอัลมอนด์</div></div>
+      <div class="vocab-card accent-milk"><div class="term">Steam</div><div class="meaning">การให้ความร้อนนมด้วยไอน้ำจาก Steam wand</div></div>
+      <div class="vocab-card accent-milk"><div class="term">Foam</div><div class="meaning">ฟองนมที่ได้จากการ steam</div></div>
+      <div class="vocab-card accent-milk"><div class="term">Dry</div><div class="meaning">ฟองเยอะ นมน้อย เช่น Dry Cappuccino</div></div>
+      <div class="vocab-card accent-milk"><div class="term">Wet</div><div class="meaning">นมเยอะ ฟองน้อย เช่น Wet Cappuccino</div></div>
+      <div class="vocab-card accent-milk"><div class="term">Breve</div><div class="meaning">ใช้ครีมครึ่งหนึ่งแทนนม ทำให้เข้มข้นขึ้น</div></div>
+    </div>
+  </div>
+
+  <!-- 🍬 SWEET -->
+  <div class="section" id="sweet-section">
+    <div class="section-header">
+      <div class="section-icon">🍬</div>
+      <div>
+        <div class="section-title">ความหวานและ Syrup</div>
+        <div class="section-sub">การปรับรสชาติเครื่องดื่ม</div>
+      </div>
+    </div>
+    <div class="vocab-grid">
+      <div class="vocab-card accent-sweet"><div class="term">Pump</div><div class="meaning">หน่วยวัดปริมาณ syrup (1 pump ≈ 1 ช้อนโต๊ะ)</div></div>
+      <div class="vocab-card accent-sweet"><div class="term">Classic syrup</div><div class="meaning">น้ำเชื่อมธรรมดา ใช้เป็น default</div></div>
+      <div class="vocab-card accent-sweet"><div class="term">Vanilla syrup</div><div class="meaning">น้ำเชื่อมวานิลลา</div></div>
+      <div class="vocab-card accent-sweet"><div class="term">Hazelnut syrup</div><div class="meaning">น้ำเชื่อมเฮเซลนัท</div></div>
+      <div class="vocab-card accent-sweet"><div class="term">Caramel sauce</div><div class="meaning">ซอสคาราเมล ราดบนเครื่องดื่ม</div></div>
+      <div class="vocab-card accent-sweet"><div class="term">Mocha sauce</div><div class="meaning">ซอสช็อกโกแลต</div></div>
+      <div class="vocab-card accent-sweet"><div class="term">Sugar-free</div><div class="meaning">ไม่มีน้ำตาล</div></div>
+      <div class="vocab-card accent-sweet"><div class="term">Less sweet</div><div class="meaning">หวานน้อย (ลด pump syrup ลง)</div></div>
+    </div>
+  </div>
+
+  <!-- 🧊 TEMP -->
+  <div class="section" id="temp-section">
+    <div class="section-header">
+      <div class="section-icon">🧊</div>
+      <div>
+        <div class="section-title">อุณหภูมิและน้ำแข็ง</div>
+        <div class="section-sub">Hot / Iced / Blended</div>
+      </div>
+    </div>
+    <div class="vocab-grid">
+      <div class="vocab-card accent-temp"><div class="term">Hot</div><div class="meaning">ร้อน (~70°C)</div></div>
+      <div class="vocab-card accent-temp"><div class="term">Iced</div><div class="meaning">เย็น ใส่น้ำแข็ง</div></div>
+      <div class="vocab-card accent-temp"><div class="term">Blended</div><div class="meaning">ปั่น เช่น Frappuccino</div></div>
+      <div class="vocab-card accent-temp"><div class="term">Extra hot</div><div class="meaning">ร้อนมากพิเศษ (~80°C)</div></div>
+      <div class="vocab-card accent-temp"><div class="term">Warm</div><div class="meaning">อุ่นๆ ไม่ร้อนมาก (~50°C)</div></div>
+      <div class="vocab-card accent-temp"><div class="term">No ice</div><div class="meaning">ไม่ใส่น้ำแข็ง</div></div>
+      <div class="vocab-card accent-temp"><div class="term">Light ice</div><div class="meaning">น้ำแข็งน้อย</div></div>
+      <div class="vocab-card accent-temp"><div class="term">Extra ice</div><div class="meaning">น้ำแข็งเยอะ</div></div>
+    </div>
+  </div>
+
+  <!-- 🥤 DRINK -->
+  <div class="section" id="drink-section">
+    <div class="section-header">
+      <div class="section-icon">🥤</div>
+      <div>
+        <div class="section-title">ชื่อเครื่องดื่ม</div>
+        <div class="section-sub">เมนูหลักที่ต้องจำ</div>
+      </div>
+    </div>
+    <div class="vocab-grid">
+      <div class="vocab-card accent-drink"><div class="term">Latte</div><div class="meaning">Espresso + นม อัตราส่วนนมเยอะ</div></div>
+      <div class="vocab-card accent-drink"><div class="term">Cappuccino</div><div class="meaning">Espresso + นม + ฟองนมเยอะ</div></div>
+      <div class="vocab-card accent-drink"><div class="term">Americano</div><div class="meaning">Espresso + น้ำร้อน/เย็น</div></div>
+      <div class="vocab-card accent-drink"><div class="term">Macchiato</div><div class="meaning">Espresso + นมนิดหน่อย</div></div>
+      <div class="vocab-card accent-drink"><div class="term">Mocha</div><div class="meaning">Espresso + ช็อกโกแลต + นม</div></div>
+      <div class="vocab-card accent-drink"><div class="term">Frappuccino</div><div class="meaning">เครื่องดื่มปั่น มีหลายรสชาติ</div></div>
+      <div class="vocab-card accent-drink"><div class="term">Cold Brew</div><div class="meaning">กาแฟชงเย็นแช่นาน 20 ชั่วโมง รสนุ่มกว่า</div></div>
+      <div class="vocab-card accent-drink"><div class="term">Flat White</div><div class="meaning">Espresso + นม steam เนื้อนุ่ม ปริมาณน้อยกว่า Latte</div></div>
+      <div class="vocab-card accent-drink"><div class="term">Matcha Latte</div><div class="meaning">ผงมัทฉะ + นม (ไม่มี espresso)</div></div>
+      <div class="vocab-card accent-drink">
+        <div class="term">Size — Tall</div>
+        <div class="meaning">ขนาดเล็ก (12 oz / 355ml)</div>
+      </div>
+      <div class="vocab-card accent-drink">
+        <div class="term">Size — Grande</div>
+        <div class="meaning">ขนาดกลาง (16 oz / 473ml)</div>
+      </div>
+      <div class="vocab-card accent-drink">
+        <div class="term">Size — Venti</div>
+        <div class="meaning">ขนาดใหญ่ (20 oz / 591ml)</div>
+      </div>
+    </div>
+    <div class="tip-box">
+      <span class="tip-icon">💡</span>
+      <p>ไม่มี S / M / L ที่ Starbucks! ต้องจำว่า Tall = เล็ก, Grande = กลาง, Venti = ใหญ่ ลูกค้าใหม่มักสับสนตรงนี้</p>
+    </div>
+  </div>
+
+  <!-- 🧾 OPS -->
+  <div class="section" id="ops-section">
+    <div class="section-header">
+      <div class="section-icon">🧾</div>
+      <div>
+        <div class="section-title">ศัพท์ในร้าน (Operations)</div>
+        <div class="section-sub">คำที่ใช้ในทีมทุกวัน</div>
+      </div>
+    </div>
+    <div class="vocab-grid">
+      <div class="vocab-card accent-ops"><div class="term">Partner</div><div class="meaning">คำที่ Starbucks เรียกพนักงานทุกคน (ไม่ใช่ Employee)</div></div>
+      <div class="vocab-card accent-ops"><div class="term">Shift</div><div class="meaning">กะการทำงาน</div></div>
+      <div class="vocab-card accent-ops"><div class="term">Bar</div><div class="meaning">สเตชั่นชงเครื่องดื่ม</div></div>
+      <div class="vocab-card accent-ops"><div class="term">POS</div><div class="meaning">เครื่องคิดเงิน (Point of Sale)</div></div>
+      <div class="vocab-card accent-ops"><div class="term">On the fly</div><div class="meaning">ทำด่วน! ลูกค้ารออยู่</div></div>
+      <div class="vocab-card accent-ops"><div class="term">86</div><div class="meaning">ของหมด เช่น "86 oat milk" = oat milk หมดแล้ว</div></div>
+      <div class="vocab-card accent-ops"><div class="term">Play list</div><div class="meaning">รายการเครื่องดื่มที่ต้องชงตามคิว</div></div>
+      <div class="vocab-card accent-ops"><div class="term">Waste</div><div class="meaning">ของที่ต้องทิ้งเพราะหมดอายุ</div></div>
+      <div class="vocab-card accent-ops"><div class="term">Par</div><div class="meaning">ปริมาณของที่ต้องเตรียมไว้ต่อกะ</div></div>
+      <div class="vocab-card accent-ops"><div class="term">Upcharge</div><div class="meaning">ค่าเพิ่มสำหรับการ customize เช่น เปลี่ยนนม</div></div>
+      <div class="vocab-card accent-ops"><div class="term">NW (No Whip)</div><div class="meaning">ไม่ใส่วิปครีม — ตัวย่อบนแก้ว</div></div>
+      <div class="vocab-card accent-ops"><div class="term">XS (Extra Shot)</div><div class="meaning">เพิ่มช็อต espresso — ตัวย่อบนแก้ว</div></div>
+      <div class="vocab-card accent-ops"><div class="term">NI (No Ice)</div><div class="meaning">ไม่ใส่น้ำแข็ง — ตัวย่อบนแก้ว</div></div>
+      <div class="vocab-card accent-ops"><div class="term">LS (Less Sweet)</div><div class="meaning">หวานน้อย — ตัวย่อบนแก้ว</div></div>
+    </div>
+  </div>
+
+  <!-- 🥐 FOOD -->
+  <div class="section" id="food-section">
+    <div class="section-header">
+      <div class="section-icon">🥐</div>
+      <div>
+        <div class="section-title">ศัพท์เกี่ยวกับอาหาร / Pastry</div>
+        <div class="section-sub">สำหรับสเตชั่น Food</div>
+      </div>
+    </div>
+    <div class="vocab-grid">
+      <div class="vocab-card accent-food"><div class="term">Reheat</div><div class="meaning">อุ่นอาหารซ้ำ</div></div>
+      <div class="vocab-card accent-food"><div class="term">Warmed</div><div class="meaning">อุ่นให้ร้อน (ลูกค้าขอ)</div></div>
+      <div class="vocab-card accent-food"><div class="term">Toasted</div><div class="meaning">อบให้กรอบ เช่น sandwich</div></div>
+      <div class="vocab-card accent-food"><div class="term">Pastry</div><div class="meaning">ขนมอบทั้งหมด เช่น croissant, muffin</div></div>
+      <div class="vocab-card accent-food"><div class="term">Grab & Go</div><div class="meaning">อาหารพร้อมทาน ไม่ต้องอุ่น</div></div>
+      <div class="vocab-card accent-food"><div class="term">Display case</div><div class="meaning">ตู้แสดงอาหารที่เคาน์เตอร์</div></div>
+      <div class="vocab-card accent-food"><div class="term">Date dot</div><div class="meaning">สติกเกอร์วันหมดอายุที่ติดบนอาหาร</div></div>
+      <div class="vocab-card accent-food"><div class="term">For here / To go</div><div class="meaning">นั่งทานที่ร้าน / กลับบ้าน</div></div>
+    </div>
+  </div>
+
+  <!-- ⚠️ PROBLEM -->
+  <div class="section" id="problem-section">
+    <div class="section-header">
+      <div class="section-icon">⚠️</div>
+      <div>
+        <div class="section-title">ศัพท์เวลามีปัญหา</div>
+        <div class="section-sub">เครื่องเสีย ของหมด แจ้งหัวหน้า</div>
+      </div>
+    </div>
+    <div class="vocab-grid">
+      <div class="vocab-card accent-problem"><div class="term">Machine down</div><div class="meaning">เครื่องเสีย ใช้งานไม่ได้</div></div>
+      <div class="vocab-card accent-problem"><div class="term">Out of stock / 86</div><div class="meaning">ของหมด</div></div>
+      <div class="vocab-card accent-problem"><div class="term">Spill</div><div class="meaning">ของหกหรือเลอะ</div></div>
+      <div class="vocab-card accent-problem"><div class="term">Comp</div><div class="meaning">ให้สินค้าฟรีเพื่อแก้ไขความไม่พอใจของลูกค้า</div></div>
+      <div class="vocab-card accent-problem"><div class="term">Remake</div><div class="meaning">ทำเครื่องดื่มใหม่ให้ลูกค้าเพราะทำผิด</div></div>
+      <div class="vocab-card accent-problem"><div class="term">Escalate</div><div class="meaning">ส่งเรื่องให้หัวหน้าหรือ supervisor จัดการ</div></div>
+      <div class="vocab-card accent-problem"><div class="term">Incident report</div><div class="meaning">รายงานเหตุการณ์ผิดปกติ เช่น อุบัติเหตุ</div></div>
+      <div class="vocab-card accent-problem"><div class="term">One moment please</div><div class="meaning">รอสักครู่นะคะ — phrase ช่วยชีวิตเวลาไม่รู้จะตอบอะไร</div></div>
+    </div>
+    <div class="tip-box">
+      <span class="tip-icon">💡</span>
+      <p>ถ้าเกิดปัญหาอะไร ให้บอก supervisor ทันที ไม่ต้องซ่อน ทุกคนเข้าใจว่ามือใหม่ย่อมมีข้อผิดพลาด สิ่งสำคัญคือรายงานเร็ว</p>
+    </div>
+  </div>
+
+  <!-- ✨ CUSTOM -->
+  <div class="section" id="custom-section">
+    <div class="section-header">
+      <div class="section-icon">✨</div>
+      <div>
+        <div class="section-title">Customization ขั้นสูง</div>
+        <div class="section-sub">คำสั่งพิเศษที่ลูกค้านิยม</div>
+      </div>
+    </div>
+    <div class="vocab-grid">
+      <div class="vocab-card accent-custom"><div class="term">Upside down</div><div class="meaning">เทกลับด้าน เช่น Upside down Caramel Macchiato = เท espresso ก่อน แล้วตามด้วย caramel</div></div>
+      <div class="vocab-card accent-custom"><div class="term">Half-caf</div><div class="meaning">ใช้ espresso ครึ่ง shot + decaf ครึ่ง shot</div></div>
+      <div class="vocab-card accent-custom"><div class="term">Decaf</div><div class="meaning">กาแฟไม่มีคาเฟอีน</div></div>
+      <div class="vocab-card accent-custom"><div class="term">Extra shot</div><div class="meaning">เพิ่ม espresso 1 shot</div></div>
+      <div class="vocab-card accent-custom"><div class="term">No whip</div><div class="meaning">ไม่ใส่วิปครีม</div></div>
+      <div class="vocab-card accent-custom"><div class="term">Extra whip</div><div class="meaning">วิปครีมเพิ่มพิเศษ</div></div>
+      <div class="vocab-card accent-custom"><div class="term">Stirred</div><div class="meaning">คนให้เข้ากัน</div></div>
+      <div class="vocab-card accent-custom"><div class="term">Cold foam</div><div class="meaning">ฟองนมเย็น ราดด้านบนเครื่องดื่มเย็น</div></div>
+      <div class="vocab-card accent-custom"><div class="term">Splash of milk</div><div class="meaning">เติมนมนิดหน่อย</div></div>
+      <div class="vocab-card accent-custom"><div class="term">Sub / Substitute</div><div class="meaning">เปลี่ยน เช่น "Sub oat milk" = เปลี่ยนเป็นนมข้าวโอ๊ต</div></div>
+    </div>
+  </div>
+
+  <!-- 🧹 CLEAN -->
+  <div class="section" id="clean-section">
+    <div class="section-header">
+      <div class="section-icon">🧹</div>
+      <div>
+        <div class="section-title">Cleaning / เปิด-ปิดร้าน</div>
+        <div class="section-sub">Opening & Closing duties</div>
+      </div>
+    </div>
+    <div class="vocab-grid">
+      <div class="vocab-card accent-clean"><div class="term">Opening duties</div><div class="meaning">งานที่ต้องทำตอนเปิดร้าน เช่น เตรียมของ, เปิดเครื่อง</div></div>
+      <div class="vocab-card accent-clean"><div class="term">Closing duties</div><div class="meaning">งานที่ต้องทำตอนปิดร้าน เช่น ล้างเครื่อง, เช็ดเคาน์เตอร์</div></div>
+      <div class="vocab-card accent-clean"><div class="term">Sanitize</div><div class="meaning">ฆ่าเชื้อพื้นผิว ด้วยน้ำยาหรือผ้าที่ได้รับการอนุมัติ</div></div>
+      <div class="vocab-card accent-clean"><div class="term">Backbar</div><div class="meaning">พื้นที่ด้านหลัง bar สำหรับล้างอุปกรณ์</div></div>
+      <div class="vocab-card accent-clean"><div class="term">Purge</div><div class="meaning">ปล่อยไอน้ำออกจาก steam wand ก่อนใช้งาน</div></div>
+      <div class="vocab-card accent-clean"><div class="term">Blind cleaning</div><div class="meaning">การล้างเครื่อง espresso ด้วยผงทำความสะอาด</div></div>
+      <div class="vocab-card accent-clean"><div class="term">Floor sweep</div><div class="meaning">กวาดพื้น</div></div>
+      <div class="vocab-card accent-clean"><div class="term">Restocking</div><div class="meaning">เติมของที่หมด เช่น ถ้วย, ฝา, หลอด</div></div>
+      <div class="vocab-card accent-clean"><div class="term">Check temp</div><div class="meaning">ตรวจอุณหภูมิตู้เย็นและอาหาร ตามมาตรฐาน food safety</div></div>
+      <div class="vocab-card accent-clean"><div class="term">Log</div><div class="meaning">บันทึกข้อมูล เช่น อุณหภูมิ, ของเสีย ลงในสมุด</div></div>
+    </div>
+    <div class="tip-box">
+      <span class="tip-icon">💡</span>
+      <p>วันแรกๆ ให้สังเกตว่าร้านของเราใช้ checklist อะไรบ้าง แล้วถามพี่ที่ทำงานว่า routine ของ opening/closing มีอะไรบ้าง แต่ละสาขาอาจต่างกันนิดหน่อย</p>
+    </div>
+  </div>
+
+</div><!-- end main -->
+
+<script>
+const allVocab = [
+  // coffee
+  {term:'Espresso',meaning:'กาแฟเข้มข้นที่เป็นพื้นฐานของเครื่องดื่มเกือบทุกอย่าง',cat:'coffee'},
+  {term:'Shot',meaning:'ปริมาณ espresso 1 ครั้ง (~30ml)',cat:'coffee'},
+  {term:'Doppio',meaning:'Espresso 2 shot (double)',cat:'coffee'},
+  {term:'Ristretto',meaning:'Espresso ที่เข้มและหวานกว่าปกติ ใช้น้ำน้อยกว่า',cat:'coffee'},
+  {term:'Lungo',meaning:'Espresso ที่ใช้น้ำมากกว่าปกติ รสอ่อนกว่า',cat:'coffee'},
+  {term:'Crema',meaning:'ฟองสีน้ำตาลทองบนหน้า espresso',cat:'coffee'},
+  {term:'Grind',meaning:'การบดเมล็ดกาแฟ',cat:'coffee'},
+  {term:'Tamp',meaning:'การอัดผงกาแฟในตะกร้าให้แน่น ก่อนชง',cat:'coffee'},
+  {term:'Portafilter',meaning:'ที่ใส่ผงกาแฟ ต่อเข้ากับเครื่อง espresso',cat:'coffee'},
+  // milk
+  {term:'Whole milk',meaning:'นมสด ไขมันเต็ม — ใช้เป็น default',cat:'milk'},
+  {term:'Skim milk',meaning:'นมไขมัน 0%',cat:'milk'},
+  {term:'Oat milk',meaning:'นมข้าวโอ๊ต (ยอดนิยมมาก!)',cat:'milk'},
+  {term:'Soy milk',meaning:'นมถั่วเหลือง',cat:'milk'},
+  {term:'Almond milk',meaning:'นมอัลมอนด์',cat:'milk'},
+  {term:'Steam',meaning:'การให้ความร้อนนมด้วยไอน้ำจาก Steam wand',cat:'milk'},
+  {term:'Foam',meaning:'ฟองนมที่ได้จากการ steam',cat:'milk'},
+  {term:'Dry',meaning:'ฟองเยอะ นมน้อย เช่น Dry Cappuccino',cat:'milk'},
+  {term:'Wet',meaning:'นมเยอะ ฟองน้อย เช่น Wet Cappuccino',cat:'milk'},
+  {term:'Breve',meaning:'ใช้ครีมครึ่งหนึ่งแทนนม ทำให้เข้มข้นขึ้น',cat:'milk'},
+  // sweet
+  {term:'Pump',meaning:'หน่วยวัดปริมาณ syrup (1 pump ≈ 1 ช้อนโต๊ะ)',cat:'sweet'},
+  {term:'Classic syrup',meaning:'น้ำเชื่อมธรรมดา ใช้เป็น default',cat:'sweet'},
+  {term:'Vanilla syrup',meaning:'น้ำเชื่อมวานิลลา',cat:'sweet'},
+  {term:'Hazelnut syrup',meaning:'น้ำเชื่อมเฮเซลนัท',cat:'sweet'},
+  {term:'Caramel sauce',meaning:'ซอสคาราเมล ราดบนเครื่องดื่ม',cat:'sweet'},
+  {term:'Mocha sauce',meaning:'ซอสช็อกโกแลต',cat:'sweet'},
+  {term:'Sugar-free',meaning:'ไม่มีน้ำตาล',cat:'sweet'},
+  {term:'Less sweet',meaning:'หวานน้อย (ลด pump syrup ลง)',cat:'sweet'},
+  // temp
+  {term:'Hot',meaning:'ร้อน (~70°C)',cat:'temp'},
+  {term:'Iced',meaning:'เย็น ใส่น้ำแข็ง',cat:'temp'},
+  {term:'Blended',meaning:'ปั่น เช่น Frappuccino',cat:'temp'},
+  {term:'Extra hot',meaning:'ร้อนมากพิเศษ (~80°C)',cat:'temp'},
+  {term:'Warm',meaning:'อุ่นๆ ไม่ร้อนมาก (~50°C)',cat:'temp'},
+  {term:'No ice',meaning:'ไม่ใส่น้ำแข็ง',cat:'temp'},
+  {term:'Light ice',meaning:'น้ำแข็งน้อย',cat:'temp'},
+  {term:'Extra ice',meaning:'น้ำแข็งเยอะ',cat:'temp'},
+  // drink
+  {term:'Latte',meaning:'Espresso + นม อัตราส่วนนมเยอะ',cat:'drink'},
+  {term:'Cappuccino',meaning:'Espresso + นม + ฟองนมเยอะ',cat:'drink'},
+  {term:'Americano',meaning:'Espresso + น้ำร้อน/เย็น',cat:'drink'},
+  {term:'Macchiato',meaning:'Espresso + นมนิดหน่อย',cat:'drink'},
+  {term:'Mocha',meaning:'Espresso + ช็อกโกแลต + นม',cat:'drink'},
+  {term:'Frappuccino',meaning:'เครื่องดื่มปั่น มีหลายรสชาติ',cat:'drink'},
+  {term:'Cold Brew',meaning:'กาแฟชงเย็นแช่นาน 20 ชั่วโมง รสนุ่มกว่า',cat:'drink'},
+  {term:'Flat White',meaning:'Espresso + นม steam เนื้อนุ่ม ปริมาณน้อยกว่า Latte',cat:'drink'},
+  {term:'Tall',meaning:'ขนาดเล็ก (12 oz / 355ml)',cat:'drink'},
+  {term:'Grande',meaning:'ขนาดกลาง (16 oz / 473ml)',cat:'drink'},
+  {term:'Venti',meaning:'ขนาดใหญ่ (20 oz / 591ml)',cat:'drink'},
+  // ops
+  {term:'Partner',meaning:'คำที่ Starbucks เรียกพนักงานทุกคน',cat:'ops'},
+  {term:'Shift',meaning:'กะการทำงาน',cat:'ops'},
+  {term:'Bar',meaning:'สเตชั่นชงเครื่องดื่ม',cat:'ops'},
+  {term:'POS',meaning:'เครื่องคิดเงิน (Point of Sale)',cat:'ops'},
+  {term:'On the fly',meaning:'ทำด่วน! ลูกค้ารออยู่',cat:'ops'},
+  {term:'86',meaning:'ของหมด เช่น "86 oat milk"',cat:'ops'},
+  {term:'Waste',meaning:'ของที่ต้องทิ้งเพราะหมดอายุ',cat:'ops'},
+  {term:'Par',meaning:'ปริมาณของที่ต้องเตรียมไว้ต่อกะ',cat:'ops'},
+  {term:'NW',meaning:'No Whip — ตัวย่อบนแก้ว',cat:'ops'},
+  {term:'XS',meaning:'Extra Shot — ตัวย่อบนแก้ว',cat:'ops'},
+  {term:'NI',meaning:'No Ice — ตัวย่อบนแก้ว',cat:'ops'},
+  {term:'LS',meaning:'Less Sweet — ตัวย่อบนแก้ว',cat:'ops'},
+  // food
+  {term:'Reheat',meaning:'อุ่นอาหารซ้ำ',cat:'food'},
+  {term:'Warmed',meaning:'อุ่นให้ร้อน (ลูกค้าขอ)',cat:'food'},
+  {term:'Toasted',meaning:'อบให้กรอบ เช่น sandwich',cat:'food'},
+  {term:'Pastry',meaning:'ขนมอบทั้งหมด เช่น croissant, muffin',cat:'food'},
+  {term:'Grab & Go',meaning:'อาหารพร้อมทาน ไม่ต้องอุ่น',cat:'food'},
+  {term:'Date dot',meaning:'สติกเกอร์วันหมดอายุที่ติดบนอาหาร',cat:'food'},
+  {term:'For here',meaning:'นั่งทานที่ร้าน',cat:'food'},
+  {term:'To go',meaning:'กลับบ้าน',cat:'food'},
+  // problem
+  {term:'Machine down',meaning:'เครื่องเสีย ใช้งานไม่ได้',cat:'problem'},
+  {term:'Out of stock',meaning:'ของหมด',cat:'problem'},
+  {term:'Spill',meaning:'ของหกหรือเลอะ',cat:'problem'},
+  {term:'Comp',meaning:'ให้สินค้าฟรีเพื่อแก้ไขความไม่พอใจของลูกค้า',cat:'problem'},
+  {term:'Remake',meaning:'ทำเครื่องดื่มใหม่ให้ลูกค้าเพราะทำผิด',cat:'problem'},
+  {term:'Escalate',meaning:'ส่งเรื่องให้หัวหน้าจัดการ',cat:'problem'},
+  {term:'One moment please',meaning:'รอสักครู่นะคะ — phrase ช่วยชีวิต',cat:'problem'},
+  // custom
+  {term:'Upside down',meaning:'เทกลับด้าน เช่น Upside down Caramel Macchiato',cat:'custom'},
+  {term:'Half-caf',meaning:'ใช้ espresso ครึ่ง shot + decaf ครึ่ง shot',cat:'custom'},
+  {term:'Decaf',meaning:'กาแฟไม่มีคาเฟอีน',cat:'custom'},
+  {term:'Extra shot',meaning:'เพิ่ม espresso 1 shot',cat:'custom'},
+  {term:'No whip',meaning:'ไม่ใส่วิปครีม',cat:'custom'},
+  {term:'Extra whip',meaning:'วิปครีมเพิ่มพิเศษ',cat:'custom'},
+  {term:'Cold foam',meaning:'ฟองนมเย็น ราดด้านบนเครื่องดื่มเย็น',cat:'custom'},
+  {term:'Sub / Substitute',meaning:'เปลี่ยน เช่น "Sub oat milk" = เปลี่ยนเป็นนมข้าวโอ๊ต',cat:'custom'},
+  // clean
+  {term:'Opening duties',meaning:'งานที่ต้องทำตอนเปิดร้าน เช่น เตรียมของ, เปิดเครื่อง',cat:'clean'},
+  {term:'Closing duties',meaning:'งานที่ต้องทำตอนปิดร้าน เช่น ล้างเครื่อง, เช็ดเคาน์เตอร์',cat:'clean'},
+  {term:'Sanitize',meaning:'ฆ่าเชื้อพื้นผิว ด้วยน้ำยาหรือผ้าที่ได้รับการอนุมัติ',cat:'clean'},
+  {term:'Backbar',meaning:'พื้นที่ด้านหลัง bar สำหรับล้างอุปกรณ์',cat:'clean'},
+  {term:'Purge',meaning:'ปล่อยไอน้ำออกจาก steam wand ก่อนใช้งาน',cat:'clean'},
+  {term:'Blind cleaning',meaning:'การล้างเครื่อง espresso ด้วยผงทำความสะอาด',cat:'clean'},
+  {term:'Restocking',meaning:'เติมของที่หมด เช่น ถ้วย, ฝา, หลอด',cat:'clean'},
+  {term:'Check temp',meaning:'ตรวจอุณหภูมิตู้เย็นและอาหาร ตามมาตรฐาน food safety',cat:'clean'},
+  {term:'Log',meaning:'บันทึกข้อมูล เช่น อุณหภูมิ, ของเสีย ลงในสมุด',cat:'clean'},
+];
+
+const accentMap = {coffee:'accent-coffee',milk:'accent-milk',sweet:'accent-sweet',temp:'accent-temp',drink:'accent-drink',ops:'accent-ops',food:'accent-food',problem:'accent-problem',custom:'accent-custom',clean:'accent-clean'};
+
+function showTab(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(name + '-section').classList.add('active');
+  event.target.classList.add('active');
+  // clear search
+  document.querySelector('.search-input').value = '';
+}
+
+function searchVocab(q) {
+  const allSec = document.getElementById('all-section');
+  const results = document.getElementById('search-results');
+  if (!q.trim()) {
+    allSec.classList.remove('active');
+    // restore last tab — just show coffee as fallback
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById('coffee-section').classList.add('active');
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-btn')[0].classList.add('active');
+    return;
+  }
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  allSec.classList.add('active');
+  const filtered = allVocab.filter(v =>
+    v.term.toLowerCase().includes(q.toLowerCase()) ||
+    v.meaning.includes(q)
+  );
+  if (filtered.length === 0) {
+    results.innerHTML = '<p style="color:#888;padding:20px;">ไม่พบคำที่ค้นหา 🔍</p>';
+    return;
+  }
+  results.innerHTML = filtered.map(v => `
+    <div class="vocab-card ${accentMap[v.cat]}">
+      <div class="term">${v.term}</div>
+      <div class="meaning">${v.meaning}</div>
+    </div>
+  `).join('');
+}
+</script>
+</body>
+</html>
